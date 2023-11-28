@@ -1,0 +1,19 @@
+name: Python application CI/CD waleed ahmad
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+       
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Build Docker Image
+        run: |
+          docker login -u ${{secrets. DOCKER_USERNAME}} -p ${{secrets. DOCKER_PASSWORD}}
+          docker build -t waleedahmad2627/i200858-pythonflask .
+      - name: Push Docker Image
+        run: docker push waleedahmad2627/i200858-pythonflask
